@@ -1,8 +1,12 @@
-import './App.css'
+import "./App.css";
+import HomePage from "./component/HomePage";
 
-export default function App() {
-  return (
-    <>
-    </>
-  )
+function App() {
+    return (
+        <>
+            <HomePage />
+        </>
+    );
 }
+
+export default App;

@@ -8,6 +8,9 @@ const columns: GridColDef<(typeof tasksList)[number]>[] = [
         field: "status",
         headerName: "Status",
         flex: 2,
+        editable: true,
+        type: "singleSelect",
+        valueOptions: ["Not started", "In progress", "Done"],
     },
 ];
 

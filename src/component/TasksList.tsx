@@ -30,6 +30,11 @@ export default function TasksList() {
             getRowClassName={(params) =>
                 `super-app-theme--${params.row.status.trim()}`
             }
+            sx={{
+                "& .MuiDataGrid-columnHeaderTitle": {
+                    fontWeight: "bold",
+                }
+            }}
         />
     );
 }

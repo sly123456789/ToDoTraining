@@ -36,7 +36,16 @@ export default function TasksList() {
             sx={{
                 "& .MuiDataGrid-columnHeaderTitle": {
                     fontWeight: "bold",
-                }
+                },
+                "& .super-app-theme--Done": {
+                    backgroundColor: "#2ad95e",
+                },
+                "& .super-app-theme--In.progress": {
+                    backgroundColor: "#d9cd2a",
+                },
+                "& .super-app-theme--Not.started": {
+                    backgroundColor: "#2ab6d9",
+                },
             }}
         />
     );

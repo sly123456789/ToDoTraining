@@ -1,0 +1,172 @@
+import * as React from "react";
+import {
+    Toolbar,
+    ToolbarButton,
+    ColumnsPanelTrigger,
+    FilterPanelTrigger,
+} from "@mui/x-data-grid";
+import Tooltip from "@mui/material/Tooltip";
+import Badge from "@mui/material/Badge";
+import Popper from "@mui/material/Popper";
+import Paper from "@mui/material/Paper";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import ViewColumnIcon from "@mui/icons-material/ViewColumn";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import Typography from "@mui/material/Typography";
+import AddIcon from "@mui/icons-material/Add";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Select, { type SelectChangeEvent } from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import { type ToolbarPropsOverrides } from "@mui/x-data-grid";
+import type { Task } from "../types/tasks";
+
+declare module "@mui/x-data-grid" {
+    interface ToolbarPropsOverrides {
+        statuses: string[];
+        addTask: (task: Task) => void;
+    }
+}
+
+export default function CustomToolbar({
+    statuses,
+    addTask,
+}: ToolbarPropsOverrides) {
+    const [newPanelOpen, setNewPanelOpen] = React.useState(false);
+    const newPanelTriggerRef = React.useRef<HTMLButtonElement>(null);
+    const [onSelectStatus, setOnSelectStatus] = React.useState<boolean>(false);
+    const [selectedStatus, setSelectedStatus] = React.useState<string>(
+        statuses.length > 0 ? statuses[0] : "",
+    );
+
+    const handleClose = () => {
+        setNewPanelOpen(false);
+    };
+
+    const handleSubmit = (event: React.SubmitEvent) => {
+        event.preventDefault();
+        const formData = new FormData(event.target as HTMLFormElement);
+
+        const newTask: Task = {
+            id: Date.now(),
+            title: String(formData.get("title")),
+            status: String(formData.get("status")),
+        };
+
+        addTask(newTask);
+        console.log("here: ", event);
+        handleClose();
+    };
+
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === "Escape") {
+            handleClose();
+        }
+    };
+
+    const handleStatusChange = (event: SelectChangeEvent) => {
+        setSelectedStatus(event.target.value as string);
+    };
+
+    return (
+        <Toolbar>
+            <Tooltip title="Add new task">
+                <ToolbarButton
+                    ref={newPanelTriggerRef}
+                    aria-describedby="new-panel"
+                    onClick={() => setNewPanelOpen((prev) => !prev)}>
+                    <AddIcon fontSize="small" />
+                </ToolbarButton>
+            </Tooltip>
+
+            <Popper
+                open={newPanelOpen}
+                anchorEl={newPanelTriggerRef.current}
+                placement="bottom-end"
+                id="new-panel"
+                onKeyDown={handleKeyDown}>
+                <ClickAwayListener
+                    onClickAway={() => {
+                        if (onSelectStatus) return;
+                        handleClose();
+                    }}>
+                    <div>
+                        <Paper
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: 2,
+                                width: 300,
+                                p: 2,
+                            }}
+                            elevation={8}>
+                            <Typography fontWeight="bold">
+                                Add new task
+                            </Typography>
+                            <form onSubmit={handleSubmit}>
+                                <Stack spacing={2}>
+                                    <TextField
+                                        label="Task title"
+                                        name="title"
+                                        size="small"
+                                        autoFocus
+                                        fullWidth
+                                        required
+                                    />
+                                    <Select
+                                        value={selectedStatus}
+                                        label="Status"
+                                        name="status"
+                                        onOpen={() => setOnSelectStatus(true)}
+                                        MenuProps={{
+                                            TransitionProps: {
+                                                onExited: () =>
+                                                    setOnSelectStatus(false),
+                                            },
+                                        }}
+                                        onChange={handleStatusChange}>
+                                        {statuses.map((option) => (
+                                            <MenuItem
+                                                key={option}
+                                                value={option}>
+                                                {option}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                    <Button
+                                        type="submit"
+                                        variant="contained"
+                                        fullWidth>
+                                        Add task
+                                    </Button>
+                                </Stack>
+                            </form>
+                        </Paper>
+                    </div>
+                </ClickAwayListener>
+            </Popper>
+
+            <Tooltip title="Columns">
+                <ColumnsPanelTrigger render={<ToolbarButton />}>
+                    <ViewColumnIcon fontSize="small" />
+                </ColumnsPanelTrigger>
+            </Tooltip>
+
+            <Tooltip title="Filters">
+                <FilterPanelTrigger
+                    render={(props, state) => (
+                        <ToolbarButton {...props} color="default">
+                            <Badge
+                                badgeContent={state.filterCount}
+                                color="primary"
+                                variant="dot">
+                                <FilterListIcon fontSize="small" />
+                            </Badge>
+                        </ToolbarButton>
+                    )}
+                />
+            </Tooltip>
+        </Toolbar>
+    );
+}

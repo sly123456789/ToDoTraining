@@ -1,8 +1,12 @@
-import tasksList from "../data/ExampleTasks.json";
+import * as React from "react";
+import initialTasks from "../data/ExampleTasks.json";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import type { Task } from "../types/tasks";
+import CustomToolbar from "./CustomToolbar";
 
-const columns: GridColDef<(typeof tasksList)[number]>[] = [
+const statuses: string[] = ["Not started", "In progress", "Done"];
+
+const columns: GridColDef<(typeof initialTasks)[number]>[] = [
     { field: "title", headerName: "Title", flex: 1 },
     {
         field: "status",
@@ -10,13 +14,17 @@ const columns: GridColDef<(typeof tasksList)[number]>[] = [
         flex: 2,
         editable: true,
         type: "singleSelect",
-        valueOptions: ["Not started", "In progress", "Done"],
+        valueOptions: statuses,
     },
 ];
 
-const tasks: Task[] = tasksList;
-
 export default function TasksList() {
+    const [tasks, setTasks] = React.useState<Task[]>(initialTasks);
+
+    const AddTask = (task: Task) => {
+        setTasks((prev) => [...prev, task]);
+    };
+
     return (
         <DataGrid
             rows={tasks}
@@ -30,6 +38,14 @@ export default function TasksList() {
             }}
             pageSizeOptions={[5]}
             disableRowSelectionOnClick
+            slots={{ toolbar: CustomToolbar }}
+            slotProps={{
+                toolbar: {
+                    statuses: statuses,
+                    addTask: AddTask,
+                },
+            }}
+            showToolbar
             getRowClassName={(params) =>
                 `super-app-theme--${params.row.status.trim()}`
             }

@@ -1,9 +1,9 @@
 import * as React from "react";
-import initialTasksRaw from "../data/ExampleTasks.json";
+import {tasks as initialTasks} from "../data/TasksStorage";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import type { Task } from "../types/tasks";
 import CustomToolbar from "./CustomToolbar";
-import { defaultStatus, isStatus, statusesList } from "../types/statuses";
+import { statusesList } from "../types/statuses";
 
 const columns: GridColDef<(typeof initialTasks)[number]>[] = [
     { field: "title", headerName: "Title", flex: 1 },
@@ -16,11 +16,6 @@ const columns: GridColDef<(typeof initialTasks)[number]>[] = [
         valueOptions: statusesList,
     },
 ];
-
-const initialTasks: Task[] = initialTasksRaw.map((rawTask) => ({
-    ...rawTask,
-    status: isStatus(rawTask.status) ? rawTask.status : defaultStatus,
-}));
 
 export default function TasksList() {
     const [tasks, setTasks] = React.useState<Task[]>(initialTasks);

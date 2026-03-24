@@ -1,4 +1,6 @@
-[
+import type { Task } from "../types/tasks";
+
+export const tasks: Task[] = [
     {
         "id": 1,
         "title": "Morning Workout",

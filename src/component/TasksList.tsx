@@ -22,9 +22,13 @@ export default function TasksList() {
     const [tasks, setTasks] = React.useState<Task[]>(initialTasks);
 
     const AddTask = (newTask: Task) => {
-        tasks.some((task) => newTask.title === task.title)
-            ? toast.warning("Task with this title already exists")
-            : setTasks((prev) => [...prev, newTask]);
+        try {
+            tasks.some((task) => newTask.title === task.title)
+                ? toast.warning("Task with this title already exists")
+                : setTasks((prev) => [...prev, newTask]);
+        } catch {
+            toast.error("Error when trying to add task");
+        }
     };
 
     function handleRowUpdate(newRow: Task) {

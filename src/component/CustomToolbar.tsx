@@ -20,24 +20,25 @@ import Stack from "@mui/material/Stack";
 import Select, { type SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { type ToolbarPropsOverrides } from "@mui/x-data-grid";
-import type { Task } from "../types/tasks";
+import { type Task } from "../types/tasks";
+import { isStatus, defaultStatus } from "../types/statuses";
 
 declare module "@mui/x-data-grid" {
     interface ToolbarPropsOverrides {
-        statuses: string[];
+        statusesOptions: string[];
         addTask: (task: Task) => void;
     }
 }
 
 export default function CustomToolbar({
-    statuses,
+    statusesOptions,
     addTask,
 }: ToolbarPropsOverrides) {
     const [newPanelOpen, setNewPanelOpen] = React.useState(false);
     const newPanelTriggerRef = React.useRef<HTMLButtonElement>(null);
     const [onSelectStatus, setOnSelectStatus] = React.useState<boolean>(false);
     const [selectedStatus, setSelectedStatus] = React.useState<string>(
-        statuses.length > 0 ? statuses[0] : "",
+        statusesOptions.length > 0 ? statusesOptions[0] : "",
     );
 
     const handleClose = () => {
@@ -48,14 +49,14 @@ export default function CustomToolbar({
         event.preventDefault();
         const formData = new FormData(event.target as HTMLFormElement);
 
+        const newTaskStatus = String(formData.get("status"));
         const newTask: Task = {
             id: Date.now(),
             title: String(formData.get("title")),
-            status: String(formData.get("status")),
+            status: isStatus(newTaskStatus) ? newTaskStatus : defaultStatus,
         };
 
         addTask(newTask);
-        console.log("here: ", event);
         handleClose();
     };
 
@@ -91,59 +92,53 @@ export default function CustomToolbar({
                         if (onSelectStatus) return;
                         handleClose();
                     }}>
-                    <div>
-                        <Paper
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: 2,
-                                width: 300,
-                                p: 2,
-                            }}
-                            elevation={8}>
-                            <Typography fontWeight="bold">
-                                Add new task
-                            </Typography>
-                            <form onSubmit={handleSubmit}>
-                                <Stack spacing={2}>
-                                    <TextField
-                                        label="Task title"
-                                        name="title"
-                                        size="small"
-                                        autoFocus
-                                        fullWidth
-                                        required
-                                    />
-                                    <Select
-                                        value={selectedStatus}
-                                        label="Status"
-                                        name="status"
-                                        onOpen={() => setOnSelectStatus(true)}
-                                        MenuProps={{
-                                            TransitionProps: {
-                                                onExited: () =>
-                                                    setOnSelectStatus(false),
-                                            },
-                                        }}
-                                        onChange={handleStatusChange}>
-                                        {statuses.map((option) => (
-                                            <MenuItem
-                                                key={option}
-                                                value={option}>
-                                                {option}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                    <Button
-                                        type="submit"
-                                        variant="contained"
-                                        fullWidth>
-                                        Add task
-                                    </Button>
-                                </Stack>
-                            </form>
-                        </Paper>
-                    </div>
+                    <Paper
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 2,
+                            width: 300,
+                            p: 2,
+                        }}
+                        elevation={8}>
+                        <Typography fontWeight="bold">Add new task</Typography>
+                        <form onSubmit={handleSubmit}>
+                            <Stack spacing={2}>
+                                <TextField
+                                    label="Task title"
+                                    name="title"
+                                    size="small"
+                                    autoFocus
+                                    fullWidth
+                                    required
+                                />
+                                <Select
+                                    value={selectedStatus}
+                                    label="Status"
+                                    name="status"
+                                    onOpen={() => setOnSelectStatus(true)}
+                                    MenuProps={{
+                                        TransitionProps: {
+                                            onExited: () =>
+                                                setOnSelectStatus(false),
+                                        },
+                                    }}
+                                    onChange={handleStatusChange}>
+                                    {statusesOptions.map((option) => (
+                                        <MenuItem key={option} value={option}>
+                                            {option}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    fullWidth>
+                                    Add task
+                                </Button>
+                            </Stack>
+                        </form>
+                    </Paper>
                 </ClickAwayListener>
             </Popper>
 

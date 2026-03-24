@@ -1,5 +1,5 @@
 import * as React from "react";
-import {tasks as initialTasks} from "../data/TasksStorage";
+import { tasks as initialTasks } from "../data/TasksStorage";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import type { Task } from "../types/tasks";
 import CustomToolbar from "./CustomToolbar";
@@ -24,10 +24,20 @@ export default function TasksList() {
         setTasks((prev) => [...prev, task]);
     };
 
+    function handleRowUpdate(newRow: Task) {
+        const updatedTasks = tasks.map((task) =>
+            task.id === newRow.id ? newRow : task,
+        );
+
+        setTasks(updatedTasks);
+        return newRow;
+    }
+
     return (
         <DataGrid
             rows={tasks}
             columns={columns}
+            processRowUpdate={handleRowUpdate}
             initialState={{
                 pagination: {
                     paginationModel: {

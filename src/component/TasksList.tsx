@@ -42,7 +42,7 @@ export default function TasksList() {
 
     return (
         <>
-            <ToastContainer />
+            <ToastContainer position="bottom-left" />
             <DataGrid
                 rows={tasks}
                 columns={columns}

@@ -22,6 +22,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { type ToolbarPropsOverrides } from "@mui/x-data-grid";
 import { type Task } from "../types/tasks";
 import { isStatus, defaultStatus } from "../types/statuses";
+import { toast } from "react-toastify";
 
 declare module "@mui/x-data-grid" {
     interface ToolbarPropsOverrides {
@@ -46,18 +47,22 @@ export default function CustomToolbar({
     };
 
     const handleSubmit = (event: React.SubmitEvent) => {
-        event.preventDefault();
-        const formData = new FormData(event.target as HTMLFormElement);
+        try {
+            event.preventDefault();
+            const formData = new FormData(event.target as HTMLFormElement);
 
-        const newTaskStatus = String(formData.get("status"));
-        const newTask: Task = {
-            id: Date.now(),
-            title: String(formData.get("title")),
-            status: isStatus(newTaskStatus) ? newTaskStatus : defaultStatus,
-        };
+            const newTaskStatus = String(formData.get("status"));
+            const newTask: Task = {
+                id: Date.now(),
+                title: String(formData.get("title")),
+                status: isStatus(newTaskStatus) ? newTaskStatus : defaultStatus,
+            };
 
-        addTask(newTask);
-        handleClose();
+            addTask(newTask);
+            handleClose();
+        } catch {
+            toast.error("Error when trying to submit new task");
+        }
     };
 
     const handleKeyDown = (event: React.KeyboardEvent) => {

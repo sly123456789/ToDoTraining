@@ -1,10 +1,10 @@
-import * as React from "react";
-import { tasks as initialTasks } from "../data/TasksStorage";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
+import * as React from "react";
+import { toast } from "react-toastify";
+import { tasks as initialTasks } from "../data/TasksStorage";
+import { statusesList } from "../types/statuses";
 import type { Task } from "../types/tasks";
 import TasksListToolBar from "./TasksListToolBar";
-import { statusesList } from "../types/statuses";
-import { toast } from "react-toastify";
 
 const columns: GridColDef<Task>[] = [
     { field: "title", headerName: "Title", flex: 1 },

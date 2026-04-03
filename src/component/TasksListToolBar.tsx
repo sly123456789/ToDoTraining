@@ -1,28 +1,28 @@
-import * as React from "react";
+import AddIcon from "@mui/icons-material/Add";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import ViewColumnIcon from "@mui/icons-material/ViewColumn";
+import Badge from "@mui/material/Badge";
+import Button from "@mui/material/Button";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import MenuItem from "@mui/material/MenuItem";
+import Paper from "@mui/material/Paper";
+import Popper from "@mui/material/Popper";
+import Select, { type SelectChangeEvent } from "@mui/material/Select";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import {
-    Toolbar,
-    ToolbarButton,
     ColumnsPanelTrigger,
     FilterPanelTrigger,
+    Toolbar,
+    ToolbarButton,
+    type ToolbarPropsOverrides,
 } from "@mui/x-data-grid";
-import Tooltip from "@mui/material/Tooltip";
-import Badge from "@mui/material/Badge";
-import Popper from "@mui/material/Popper";
-import Paper from "@mui/material/Paper";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import ViewColumnIcon from "@mui/icons-material/ViewColumn";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import Typography from "@mui/material/Typography";
-import AddIcon from "@mui/icons-material/Add";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import Select, { type SelectChangeEvent } from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import { type ToolbarPropsOverrides } from "@mui/x-data-grid";
-import { type Task } from "../types/tasks";
+import * as React from "react";
 import { toast } from "react-toastify";
 import { v4 as uuid } from "uuid";
+import { type Task } from "../types/tasks";
 
 declare module "@mui/x-data-grid" {
     interface ToolbarPropsOverrides {

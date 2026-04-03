@@ -1,7 +1,7 @@
 import { type Statuses } from "./statuses";
 
 export type Task = {
-    id: number;
+    id: string;
     title: string;
     status: Statuses;
 };

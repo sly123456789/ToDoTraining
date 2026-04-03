@@ -23,6 +23,7 @@ import { type ToolbarPropsOverrides } from "@mui/x-data-grid";
 import { type Task } from "../types/tasks";
 import { isStatus, defaultStatus } from "../types/statuses";
 import { toast } from "react-toastify";
+import { v4 as uuid } from "uuid";
 
 declare module "@mui/x-data-grid" {
     interface ToolbarPropsOverrides {
@@ -53,7 +54,7 @@ export default function TasksListToolBar({
 
             const newTaskStatus = String(formData.get("status"));
             const newTask: Task = {
-                id: Date.now(),
+                id: uuid(),
                 title: String(formData.get("title")),
                 status: isStatus(newTaskStatus) ? newTaskStatus : defaultStatus,
             };

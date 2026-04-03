@@ -6,7 +6,7 @@ import CustomToolbar from "./CustomToolbar";
 import { statusesList } from "../types/statuses";
 import { toast } from "react-toastify";
 
-const columns: GridColDef<(typeof initialTasks)[number]>[] = [
+const columns: GridColDef<(Task)>[] = [
     { field: "title", headerName: "Title", flex: 1 },
     {
         field: "status",

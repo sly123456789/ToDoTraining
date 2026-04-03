@@ -62,8 +62,12 @@ export default function TasksListToolBar({
 
             addTask(newTask);
             handleClose();
-        } catch {
-            toast.error("Error when trying to submit new task");
+        } catch (error) {
+            const errorMessage =
+                error instanceof Error
+                    ? error.message
+                    : "Error when trying to submit new task";
+            toast.error(errorMessage);
         }
     };
 

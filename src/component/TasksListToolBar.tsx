@@ -50,13 +50,15 @@ export default function TasksListToolBar({
     const handleSubmit = (event: React.SubmitEvent) => {
         try {
             event.preventDefault();
-            const formData = new FormData(event.target as HTMLFormElement);
+            
+            const { title, status } = Object.fromEntries(
+                new FormData(event.target as HTMLFormElement),
+            ) as { title: string; status: string };
 
-            const newTaskStatus = String(formData.get("status"));
             const newTask: Task = {
                 id: uuid(),
-                title: String(formData.get("title")),
-                status: isStatus(newTaskStatus) ? newTaskStatus : defaultStatus,
+                title,
+                status: isStatus(status) ? status : defaultStatus,
             };
 
             addTask(newTask);

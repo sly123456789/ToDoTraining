@@ -9,7 +9,7 @@ export const tasks: Task[] = [
     {
         id: 2,
         title: "Reply to Important Emails",
-        status: "Not started",
+        status: "To do",
     },
     {
         id: 3,
@@ -19,7 +19,7 @@ export const tasks: Task[] = [
     {
         id: 4,
         title: "Schedule Doctor Appointment",
-        status: "Not started",
+        status: "To do",
     },
     {
         id: 5,
@@ -29,7 +29,7 @@ export const tasks: Task[] = [
     {
         id: 6,
         title: "Clean Workspace",
-        status: "Not started",
+        status: "To do",
     },
     {
         id: 7,
@@ -39,7 +39,7 @@ export const tasks: Task[] = [
     {
         id: 8,
         title: "Plan Weekend Activities",
-        status: "Not started",
+        status: "To do",
     },
     {
         id: 9,
@@ -49,6 +49,6 @@ export const tasks: Task[] = [
     {
         id: 10,
         title: "Call Family Member",
-        status: "Not started",
+        status: "To do",
     },
 ];

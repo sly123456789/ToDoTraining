@@ -1,9 +1,9 @@
-export const statusesList = ["Not started", "In progress", "Done"];
+export const statusesList = ["To do", "In progress", "Done"];
 
-export type statuses = (typeof statusesList)[number];
+export type Statuses = (typeof statusesList)[number];
 
-export function isStatus(value: string): value is statuses {
-    return statusesList.includes(value as statuses);
+export function isStatus(value: string): value is Statuses {
+    return statusesList.includes(value as Statuses);
 }
 
-export const defaultStatus: statuses = "Not started";
+export const defaultStatus: Statuses = "To do";

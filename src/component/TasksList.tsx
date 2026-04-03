@@ -77,7 +77,7 @@ export default function TasksList() {
                     "& .super-app-theme--In.progress": {
                         backgroundColor: "#d9cd2a",
                     },
-                    "& .super-app-theme--Not.started": {
+                    "& .super-app-theme--To.do": {
                         backgroundColor: "#2ab6d9",
                     },
                 }}

@@ -4,7 +4,7 @@ import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import type { Task } from "../types/tasks";
 import CustomToolbar from "./CustomToolbar";
 import { statusesList } from "../types/statuses";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 const columns: GridColDef<(typeof initialTasks)[number]>[] = [
     { field: "title", headerName: "Title", flex: 1 },
@@ -42,7 +42,6 @@ export default function TasksList() {
 
     return (
         <>
-            <ToastContainer position="bottom-left" />
             <DataGrid
                 rows={tasks}
                 columns={columns}

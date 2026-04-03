@@ -2,11 +2,11 @@ import * as React from "react";
 import { tasks as initialTasks } from "../data/TasksStorage";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import type { Task } from "../types/tasks";
-import CustomToolbar from "./CustomToolbar";
+import TasksListToolBar from "./TasksListToolBar";
 import { statusesList } from "../types/statuses";
 import { toast } from "react-toastify";
 
-const columns: GridColDef<(Task)>[] = [
+const columns: GridColDef<Task>[] = [
     { field: "title", headerName: "Title", flex: 1 },
     {
         field: "status",
@@ -51,7 +51,7 @@ export default function TasksList() {
                 }}
                 pageSizeOptions={[5]}
                 disableRowSelectionOnClick
-                slots={{ toolbar: CustomToolbar }}
+                slots={{ toolbar: TasksListToolBar }}
                 slotProps={{
                     toolbar: {
                         statusesOptions: statusesList,

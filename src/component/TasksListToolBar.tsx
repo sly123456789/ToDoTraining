@@ -31,7 +31,7 @@ declare module "@mui/x-data-grid" {
     }
 }
 
-export default function CustomToolbar({
+export default function TasksListToolBar({
     statusesOptions,
     addTask,
 }: ToolbarPropsOverrides) {

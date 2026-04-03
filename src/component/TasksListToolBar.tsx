@@ -21,7 +21,6 @@ import Select, { type SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { type ToolbarPropsOverrides } from "@mui/x-data-grid";
 import { type Task } from "../types/tasks";
-import { isStatus, defaultStatus } from "../types/statuses";
 import { toast } from "react-toastify";
 import { v4 as uuid } from "uuid";
 
@@ -50,7 +49,7 @@ export default function TasksListToolBar({
     const handleSubmit = (event: React.SubmitEvent) => {
         try {
             event.preventDefault();
-            
+
             const { title, status } = Object.fromEntries(
                 new FormData(event.target as HTMLFormElement),
             ) as { title: string; status: string };
@@ -58,7 +57,7 @@ export default function TasksListToolBar({
             const newTask: Task = {
                 id: uuid(),
                 title,
-                status: isStatus(status) ? status : defaultStatus,
+                status: status as Task["status"],
             };
 
             addTask(newTask);

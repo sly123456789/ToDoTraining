@@ -21,7 +21,7 @@ const columns: GridColDef<(typeof initialTasks)[number]>[] = [
 export default function TasksList() {
     const [tasks, setTasks] = React.useState<Task[]>(initialTasks);
 
-    const AddTask = (newTask: Task) => {
+    const addTask = (newTask: Task) => {
         try {
             tasks.some((task) => newTask.title === task.title)
                 ? toast.warning("Task with this title already exists")
@@ -59,7 +59,7 @@ export default function TasksList() {
                 slotProps={{
                     toolbar: {
                         statusesOptions: statusesList,
-                        addTask: AddTask,
+                        addTask: addTask,
                     },
                 }}
                 showToolbar

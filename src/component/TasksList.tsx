@@ -25,45 +25,43 @@ export default function TasksList() {
   }
 
   return (
-    <>
-      <DataGrid
-        rows={tasks}
-        columns={columns}
-        processRowUpdate={handleRowUpdate}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
+    <DataGrid
+      rows={tasks}
+      columns={columns}
+      processRowUpdate={handleRowUpdate}
+      initialState={{
+        pagination: {
+          paginationModel: {
+            pageSize: 5,
           },
-        }}
-        pageSizeOptions={[5]}
-        disableRowSelectionOnClick
-        slots={{ toolbar: TasksListToolBar }}
-        slotProps={{
-          toolbar: {
-            addTask: addTask,
-          },
-        }}
-        showToolbar
-        getRowClassName={(params) =>
-          `super-app-theme--${params.row.status.trim()}`
-        }
-        sx={{
-          "& .MuiDataGrid-columnHeaderTitle": {
-            fontWeight: "bold",
-          },
-          "& .super-app-theme--Done": {
-            backgroundColor: "#2ad95e",
-          },
-          "& .super-app-theme--In.progress": {
-            backgroundColor: "#d9cd2a",
-          },
-          "& .super-app-theme--To.do": {
-            backgroundColor: "#2ab6d9",
-          },
-        }}
-      />
-    </>
+        },
+      }}
+      pageSizeOptions={[5]}
+      disableRowSelectionOnClick
+      slots={{ toolbar: TasksListToolBar }}
+      slotProps={{
+        toolbar: {
+          addTask: addTask,
+        },
+      }}
+      showToolbar
+      getRowClassName={(params) =>
+        `super-app-theme--${params.row.status.trim()}`
+      }
+      sx={{
+        "& .MuiDataGrid-columnHeaderTitle": {
+          fontWeight: "bold",
+        },
+        "& .super-app-theme--Done": {
+          backgroundColor: "#2ad95e",
+        },
+        "& .super-app-theme--In.progress": {
+          backgroundColor: "#d9cd2a",
+        },
+        "& .super-app-theme--To.do": {
+          backgroundColor: "#2ab6d9",
+        },
+      }}
+    />
   );
 }

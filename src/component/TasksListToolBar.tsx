@@ -41,6 +41,7 @@ export default function TasksListToolBar({
     const [selectedStatus, setSelectedStatus] = React.useState<string>(
         statusesOptions.length > 0 ? statusesOptions[0] : "",
     );
+    const [newTaskTitle, setNewTaskTitle] = React.useState<string>("")
 
     const handleClose = () => {
         setNewPanelOpen(false);
@@ -50,14 +51,10 @@ export default function TasksListToolBar({
         try {
             event.preventDefault();
 
-            const { title, status } = Object.fromEntries(
-                new FormData(event.target as HTMLFormElement),
-            ) as { title: string; status: string };
-
             const newTask: Task = {
                 id: uuid(),
-                title,
-                status: status as Task["status"],
+                title: newTaskTitle,
+                status: selectedStatus,
             };
 
             addTask(newTask);
@@ -78,8 +75,12 @@ export default function TasksListToolBar({
     };
 
     const handleStatusChange = (event: SelectChangeEvent) => {
-        setSelectedStatus(event.target.value as string);
+        setSelectedStatus(event.target.value);
     };
+
+    const handleTitleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        setNewTaskTitle(event.target.value)
+    }
 
     return (
         <Toolbar>
@@ -122,6 +123,7 @@ export default function TasksListToolBar({
                                     autoFocus
                                     fullWidth
                                     required
+                                    onChange={handleTitleChange}
                                 />
                                 <Select
                                     value={selectedStatus}

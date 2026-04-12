@@ -54,7 +54,6 @@ export default function TasksList() {
                 slots={{ toolbar: TasksListToolBar }}
                 slotProps={{
                     toolbar: {
-                        statusesOptions: statusesList,
                         addTask: addTask,
                     },
                 }}

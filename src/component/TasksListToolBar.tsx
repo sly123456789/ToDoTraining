@@ -23,23 +23,22 @@ import * as React from "react";
 import { toast } from "react-toastify";
 import { v4 as uuid } from "uuid";
 import { type Task } from "../types/tasks";
+import { statusesList, type Statuses } from "../types/statuses";
 
 declare module "@mui/x-data-grid" {
     interface ToolbarPropsOverrides {
-        statusesOptions: string[];
         addTask: (task: Task) => void;
     }
 }
 
 export default function TasksListToolBar({
-    statusesOptions,
     addTask,
 }: ToolbarPropsOverrides) {
     const [newPanelOpen, setNewPanelOpen] = React.useState(false);
     const newPanelTriggerRef = React.useRef<HTMLButtonElement>(null);
     const [isStatusSelected, setIsStatusSelected] = React.useState<boolean>(false);
-    const [selectedStatus, setSelectedStatus] = React.useState<string>(
-        statusesOptions.length > 0 ? statusesOptions[0] : "",
+    const [selectedStatus, setSelectedStatus] = React.useState<Statuses>(
+        statusesList.length > 0 ? statusesList[0] : "",
     );
     const [newTaskTitle, setNewTaskTitle] = React.useState<string>("")
 
@@ -137,7 +136,7 @@ export default function TasksListToolBar({
                                         },
                                     }}
                                     onChange={handleStatusChange}>
-                                    {statusesOptions.map((option) => (
+                                    {statusesList.map((option) => (
                                         <MenuItem key={option} value={option}>
                                             {option}
                                         </MenuItem>

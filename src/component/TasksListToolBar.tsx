@@ -37,7 +37,7 @@ export default function TasksListToolBar({
 }: ToolbarPropsOverrides) {
     const [newPanelOpen, setNewPanelOpen] = React.useState(false);
     const newPanelTriggerRef = React.useRef<HTMLButtonElement>(null);
-    const [onSelectStatus, setOnSelectStatus] = React.useState<boolean>(false);
+    const [isStatusSelected, setIsStatusSelected] = React.useState<boolean>(false);
     const [selectedStatus, setSelectedStatus] = React.useState<string>(
         statusesOptions.length > 0 ? statusesOptions[0] : "",
     );
@@ -100,7 +100,7 @@ export default function TasksListToolBar({
                 onKeyDown={handleKeyDown}>
                 <ClickAwayListener
                     onClickAway={() => {
-                        if (onSelectStatus) return;
+                        if (isStatusSelected) return;
                         handleClose();
                     }}>
                     <Paper
@@ -127,11 +127,11 @@ export default function TasksListToolBar({
                                     value={selectedStatus}
                                     label="Status"
                                     name="status"
-                                    onOpen={() => setOnSelectStatus(true)}
+                                    onOpen={() => setIsStatusSelected(true)}
                                     MenuProps={{
                                         TransitionProps: {
                                             onExited: () =>
-                                                setOnSelectStatus(false),
+                                                setIsStatusSelected(false),
                                         },
                                     }}
                                     onChange={handleStatusChange}>

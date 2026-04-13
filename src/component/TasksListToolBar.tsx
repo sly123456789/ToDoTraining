@@ -32,7 +32,7 @@ declare module "@mui/x-data-grid" {
 }
 
 export default function TasksListToolBar({ addTask }: ToolbarPropsOverrides) {
-  const [newPanelOpen, setNewPanelOpen] = React.useState(false);
+  const [isNewPanelOpen, setIsNewPanelOpen] = React.useState(false);
   const newPanelTriggerRef = React.useRef<HTMLButtonElement>(null);
   const [isStatusSelected, setIsStatusSelected] =
     React.useState<boolean>(false);
@@ -42,7 +42,7 @@ export default function TasksListToolBar({ addTask }: ToolbarPropsOverrides) {
   const [newTaskTitle, setNewTaskTitle] = React.useState<string>("");
 
   const handleClose = () => {
-    setNewPanelOpen(false);
+    setIsNewPanelOpen(false);
   };
 
   const handleSubmit = (event: React.SubmitEvent) => {
@@ -88,14 +88,14 @@ export default function TasksListToolBar({ addTask }: ToolbarPropsOverrides) {
         <ToolbarButton
           ref={newPanelTriggerRef}
           aria-describedby="new-panel"
-          onClick={() => setNewPanelOpen((prev) => !prev)}
+          onClick={() => setIsNewPanelOpen((prev) => !prev)}
         >
           <AddIcon fontSize="small" />
         </ToolbarButton>
       </Tooltip>
 
       <Popper
-        open={newPanelOpen}
+        open={isNewPanelOpen}
         anchorEl={newPanelTriggerRef.current}
         placement="bottom-end"
         id="new-panel"

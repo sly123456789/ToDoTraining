@@ -32,7 +32,7 @@ declare module "@mui/x-data-grid" {
 }
 
 export default function TasksListToolBar({ addTask }: ToolbarPropsOverrides) {
-  const [isNewPanelOpen, setIsNewPanelOpen] = React.useState(false);
+  const [isNewPanelOpen, setIsNewPanelOpen] = React.useState<boolean>(false);
   const newPanelTriggerRef = React.useRef<HTMLButtonElement>(null);
   const [isStatusSelected, setIsStatusSelected] =
     React.useState<boolean>(false);

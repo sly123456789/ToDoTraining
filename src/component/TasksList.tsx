@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { tasks as initialTasks } from "../data/TasksStorage";
 import type { Task } from "../types/tasks";
 import TasksListToolBar from "./TasksListToolBar";
-import { columns } from "./consts/tasksListsColumns";
+import { columns } from "./consts/TasksListsColumns";
 
 export default function TasksList() {
   const [tasks, setTasks] = React.useState<Task[]>(initialTasks);

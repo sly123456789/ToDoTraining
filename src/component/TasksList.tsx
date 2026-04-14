@@ -5,11 +5,11 @@ import TasksListToolBar from "./TasksListToolBar";
 import { columns } from "./consts/TasksListsColumns";
 import { useSelector, useDispatch } from "react-redux";
 import { addTask, updateTask } from "../features/tasks/tasksSlice";
-import type { RootState } from "../app/store";
+import type { AppDispatch, RootState } from "../app/store";
 
 export default function TasksList() {
   const tasks = useSelector((state: RootState) => state.tasks);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   function handleAddTask(newTask: Task) {
     if (tasks.some((task: Task) => newTask.title === task.title)) {

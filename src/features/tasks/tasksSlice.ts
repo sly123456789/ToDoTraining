@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { tasks } from "../../data/TasksStorage";
 import type { Task } from "../../types/tasks";
 
@@ -8,10 +8,10 @@ const tasksSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    addTask: (state, action) => {
+    addTask: (state, action:  PayloadAction<Task>) => {
       state.push(action.payload);
     },
-    updateTask: (state, action) => {
+    updateTask: (state, action: PayloadAction<Task>) => {
       state.map((task) =>
         task.id === action.payload.id ? action.payload : task,
       );

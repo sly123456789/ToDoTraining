@@ -3,12 +3,12 @@ import { toast } from "react-toastify";
 import type { Task } from "../types/tasks";
 import TasksListToolBar from "./TasksListToolBar";
 import { columns } from "./consts/TasksListsColumns";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addTask, updateTask } from "../features/tasks/tasksSlice";
-import type { AppDispatch, RootState } from "../app/store";
+import { useAppSelector, type AppDispatch } from "../app/store";
 
 export default function TasksList() {
-  const tasks = useSelector((state: RootState) => state.tasks);
+  const tasks = useAppSelector(state => state.tasks);
   const dispatch: AppDispatch = useDispatch();
 
   function handleAddTask(newTask: Task) {

@@ -1,26 +1,26 @@
 import { DataGrid } from "@mui/x-data-grid";
-import * as React from "react";
 import { toast } from "react-toastify";
-import { tasks as initialTasks } from "../data/TasksStorage";
 import type { Task } from "../types/tasks";
 import TasksListToolBar from "./TasksListToolBar";
 import { columns } from "./consts/TasksListsColumns";
+import { useSelector, useDispatch } from "react-redux";
+import { addTask, updateTask } from "../features/tasks/tasksSlice";
+import type { RootState } from "../app/store";
 
 export default function TasksList() {
-  const [tasks, setTasks] = React.useState<Task[]>(initialTasks);
+  const tasks = useSelector((state: RootState) => state.tasks);
+  const dispatch = useDispatch();
 
-  const addTask = (newTask: Task) => {
-    tasks.some((task) => newTask.title === task.title)
-      ? toast.warning("Task with this title already exists")
-      : setTasks((prev) => [...prev, newTask]);
-  };
+  function handleAddTask(newTask: Task) {
+    if (tasks.some((task: Task) => newTask.title === task.title)) {
+      toast.warning("Task with this title already exists");
+    } else {
+      dispatch(addTask(newTask));
+    }
+  }
 
   function handleRowUpdate(newRow: Task) {
-    const updatedTasks = tasks.map((task) =>
-      task.id === newRow.id ? newRow : task,
-    );
-
-    setTasks(updatedTasks);
+    dispatch(updateTask(newRow));
     return newRow;
   }
 
@@ -41,7 +41,7 @@ export default function TasksList() {
       slots={{ toolbar: TasksListToolBar }}
       slotProps={{
         toolbar: {
-          addTask: addTask,
+          addTask: handleAddTask,
         },
       }}
       showToolbar

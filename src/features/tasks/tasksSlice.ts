@@ -1,23 +1,26 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import {
+  createEntityAdapter,
+  createSlice,
+} from "@reduxjs/toolkit";
 import { tasks } from "../../data/TasksStorage";
 import type { Task } from "../../types/tasks";
+import type { RootState } from "../../app/store";
 
-const initialState: Task[] = tasks;
+const tasksAdapter = createEntityAdapter<Task>();
+const initialState = tasksAdapter.getInitialState({});
+const preloadedTasks = tasksAdapter.setAll(initialState, tasks);
 
 const tasksSlice = createSlice({
   name: "tasks",
-  initialState,
+  initialState: preloadedTasks,
   reducers: {
-    addTask: (state, action:  PayloadAction<Task>) => {
-      state.push(action.payload);
-    },
-    updateTask: (state, action: PayloadAction<Task>) => {
-      state.map((task) =>
-        task.id === action.payload.id ? action.payload : task,
-      );
-    },
+    addTask: tasksAdapter.addOne,
+    updateTask: tasksAdapter.updateOne,
   },
 });
 
 export const { addTask, updateTask } = tasksSlice.actions;
 export default tasksSlice.reducer;
+
+export const { selectAll: selectAllTasks } =
+  tasksAdapter.getSelectors((state: RootState) => state.tasks);

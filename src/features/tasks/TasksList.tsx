@@ -2,14 +2,16 @@ import { DataGrid } from "@mui/x-data-grid";
 import { toast } from "react-toastify";
 import type { Task } from "../../types/tasks";
 import TasksListToolBar from "./TasksListToolBar";
-import { columns } from "./consts/TasksListsColumns";
+import { columns as constColumns } from "./consts/TasksListsColumns";
 import { useDispatch } from "react-redux";
 import { addTask, selectAllTasks, updateTask } from "./tasksSlice";
 import { useAppSelector, type AppDispatch } from "../../app/store";
+import { useMemo } from "react";
 
 export default function TasksList() {
   const tasks = useAppSelector((state) => selectAllTasks(state));
   const dispatch: AppDispatch = useDispatch();
+  const columns = useMemo(() => constColumns, [])
 
   function handleAddTask(newTask: Task) {
     if (tasks.some((task: Task) => newTask.title === task.title)) {

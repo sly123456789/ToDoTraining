@@ -22,8 +22,8 @@ import {
 import * as React from "react";
 import { toast } from "react-toastify";
 import { v4 as uuid } from "uuid";
-import { type Task } from "../types/tasks";
-import { statusesList, type Statuses } from "../types/statuses";
+import { type Task } from "../../types/tasks";
+import { statusesList, type Statuses } from "../../types/statuses";
 
 declare module "@mui/x-data-grid" {
   interface ToolbarPropsOverrides {

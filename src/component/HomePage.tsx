@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import "./HomePage.css";
-import TasksList from "./TasksList";
+import TasksList from "../features/tasks/TasksList";
 
 export default function HomePage() {
   return (

@@ -4,7 +4,7 @@ import type { Task } from "../../types/tasks";
 import TasksListToolBar from "./TasksListToolBar";
 import { columns } from "./consts/TasksListsColumns";
 import { addTask, selectAllTasks, updateTask } from "./tasksSlice";
-import { useAppDispatch, useAppSelector } from "../../app/store";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 export default function TasksList() {
   const tasks = useAppSelector((state) => selectAllTasks(state));

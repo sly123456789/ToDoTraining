@@ -1,18 +1,13 @@
-import {
-  createEntityAdapter,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import { tasks } from "../../data/TasksStorage";
 import type { Task } from "../../types/tasks";
 import type { RootState } from "../../app/store";
 
 const tasksAdapter = createEntityAdapter<Task>();
-const initialState = tasksAdapter.getInitialState({});
-const preloadedTasks = tasksAdapter.setAll(initialState, tasks);
 
 const tasksSlice = createSlice({
   name: "tasks",
-  initialState: preloadedTasks,
+  initialState: tasksAdapter.getInitialState({}, tasks),
   reducers: {
     addTask: tasksAdapter.addOne,
     updateTask: tasksAdapter.updateOne,
@@ -22,5 +17,6 @@ const tasksSlice = createSlice({
 export const { addTask, updateTask } = tasksSlice.actions;
 export default tasksSlice.reducer;
 
-export const { selectAll: selectAllTasks } =
-  tasksAdapter.getSelectors((state: RootState) => state.tasks);
+export const { selectAll: selectAllTasks } = tasksAdapter.getSelectors(
+  (state: RootState) => state.tasks,
+);

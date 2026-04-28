@@ -3,4 +3,5 @@
   color: var(--title-color);
   line-height: 1.2;
   letter-spacing: .05em;
+  overflow-y: auto;
 }

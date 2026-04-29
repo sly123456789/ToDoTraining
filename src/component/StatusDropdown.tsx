@@ -1,13 +1,26 @@
+import { MenuItem, Select, type SelectChangeEvent } from "@mui/material";
 import { statusesList } from "../types/statuses";
 
-export default function StatusDropdown() {
+interface StatusDropdownProps {
+  current: string;
+  onChange: (event: SelectChangeEvent<string>) => void;
+}
+
+export default function StatusDropdown({
+  current,
+  onChange,
+}: StatusDropdownProps) {
   return (
-    <select>
+    <Select
+      value={current}
+      onChange={onChange}
+      sx={{ width: 200, height: "auto" }}
+    >
       {statusesList.map((status) => (
-        <option key={status} value={status}>
+        <MenuItem key={status} value={status}>
           {status}
-        </option>
+        </MenuItem>
       ))}
-    </select>
+    </Select>
   );
 }

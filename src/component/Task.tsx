@@ -1,17 +1,16 @@
-import "./Task.css";
 import { memo } from "react";
-import { statusesList } from "../../types/statuses";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectTaskById, updateTask } from "../../features/tasks/tasksSlice";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { selectTaskById, updateTask } from "../features/tasks/tasksSlice";
 import { toast } from "react-toastify";
-import { MenuItem, Select, type SelectChangeEvent } from "@mui/material";
+import { Box, type SelectChangeEvent } from "@mui/material";
+import StatusDropdown from "./StatusDropdown";
 
 export const TaskRow = memo(({ taskId }: { taskId: string }) => {
   const task = useAppSelector((state) => selectTaskById(state, taskId));
   const dispatch = useAppDispatch();
 
   function updateStatus(event: SelectChangeEvent) {
-      const newTask = {
+    const newTask = {
       id: taskId,
       status: event.target.value,
     };
@@ -28,18 +27,15 @@ export const TaskRow = memo(({ taskId }: { taskId: string }) => {
   }
 
   return (
-    <div className="task">
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center",
+      }}
+    >
       {task.title}
-      <Select
-        value={task.status}
-        onChange={updateStatus}
-      >
-        {statusesList.map((status) => (
-          <MenuItem id={status} value={status}>
-            {status}
-          </MenuItem>
-        ))}
-      </Select>
-    </div>
+      <StatusDropdown current={task.status} onChange={updateStatus} />
+    </Box>
   );
 });

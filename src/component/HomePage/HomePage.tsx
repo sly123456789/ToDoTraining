@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
 import "./HomePage.css";
-import TasksList from "../TasksList/TasksList";
+import TasksList from "../TasksList";
 import { store } from "../../app/store";
 import { Provider } from "react-redux";
-import AddTask from "../AddTask/AddTask";
+import AddTask from "../AddTask";
 
 export default function HomePage() {
   return (

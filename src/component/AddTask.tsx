@@ -1,12 +1,12 @@
-import "./AddTask.css";
 import { useState } from "react";
-import { statusesList, type Statuses } from "../../types/statuses";
-import type { Task } from "../../types/tasks";
+import { statusesList, type Statuses } from "../types/statuses";
+import type { Task } from "../types/tasks";
 import { v4 as uuid } from "uuid";
-import { useAppDispatch } from "../../app/hooks";
-import { addTask } from "../../features/tasks/tasksSlice";
-import StatusDropdown from "../StatusDropdown";
+import { useAppDispatch } from "../app/hooks";
+import { addTask } from "../features/tasks/tasksSlice";
+import StatusDropdown from "./StatusDropdown";
 import { toast } from "react-toastify";
+import { Box, Button, TextField, type SelectChangeEvent } from "@mui/material";
 
 export default function AddTask() {
   const [selectedStatus, setSelectedStatus] = useState<Statuses>(
@@ -38,19 +38,28 @@ export default function AddTask() {
     }
   }
 
+  function handleStatusChange(event: SelectChangeEvent) {
+    setSelectedStatus(event.target.value);
+  }
+
   return (
-    <div className="add-task">
-      <input
+    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <TextField
         className="add-task-input"
+        sx={{ flexGrow: 1 }}
         type="text"
         value={newTaskTitle}
         onChange={(e) => setNewTaskTitle(e.target.value)}
         placeholder="Enter task title..."
       />
-      <StatusDropdown />
-      <button className="add-task-button" onClick={handleAddTask}>
+      <StatusDropdown current={selectedStatus} onChange={handleStatusChange} />
+      <Button
+        variant="contained"
+        className="add-task-button"
+        onClick={handleAddTask}
+      >
         Add Task
-      </button>
-    </div>
+      </Button>
+    </Box>
   );
 }

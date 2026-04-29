@@ -2,7 +2,7 @@ import { memo } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { selectTaskById, updateTask } from "../features/tasks/tasksSlice";
 import { toast } from "react-toastify";
-import { Box, type SelectChangeEvent } from "@mui/material";
+import { Box, Typography, type SelectChangeEvent } from "@mui/material";
 import StatusDropdown from "./StatusDropdown";
 
 export const TaskRow = memo(({ taskId }: { taskId: string }) => {
@@ -30,11 +30,13 @@ export const TaskRow = memo(({ taskId }: { taskId: string }) => {
     <Box
       sx={{
         display: "flex",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
         alignItems: "center",
+        width: "100%",
+        borderBottom: "1px solid #eee",
       }}
     >
-      {task.title}
+      <Typography sx={{margin: "auto"}} variant="body1">{task.title}</Typography>{" "}
       <StatusDropdown current={task.status} onChange={updateStatus} />
     </Box>
   );

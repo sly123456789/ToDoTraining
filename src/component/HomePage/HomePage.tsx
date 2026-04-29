@@ -7,12 +7,12 @@ import AddTask from "../AddTask";
 
 export default function HomePage() {
   return (
-    <Box>
-      <Provider store={store}>
+    <Provider store={store}>
+      <Box>
         <h1 className="title">To Do List</h1>
         <AddTask />
         <TasksList />
-      </Provider>
-    </Box>
+      </Box>
+    </Provider>
   );
 }

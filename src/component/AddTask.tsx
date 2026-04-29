@@ -17,7 +17,7 @@ export default function AddTask() {
 
   function handleAddTask() {
     if (!newTaskTitle.trim()) {
-      toast.error("Task title is empthy");
+      toast.error("Task title is empty");
       return;
     }
 

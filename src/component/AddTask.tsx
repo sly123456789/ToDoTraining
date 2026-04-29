@@ -9,9 +9,7 @@ import { toast } from "react-toastify";
 import { Box, Button, TextField, type SelectChangeEvent } from "@mui/material";
 
 export default function AddTask() {
-  const [selectedStatus, setSelectedStatus] = useState<Statuses>(
-    statusesList.length > 0 ? statusesList[0] : "",
-  );
+  const [selectedStatus, setSelectedStatus] = useState<Statuses>(statusesList[0]);
   const [newTaskTitle, setNewTaskTitle] = useState<string>("");
   const dispatch = useAppDispatch();
 

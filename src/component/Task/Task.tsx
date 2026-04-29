@@ -1,23 +1,23 @@
 import "./Task.css";
 import { memo } from "react";
-import type { Task } from "../../types/tasks";
 import { statusesList } from "../../types/statuses";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectTaskById, updateTask } from "../../features/tasks/tasksSlice";
 import { toast } from "react-toastify";
+import { MenuItem, Select, type SelectChangeEvent } from "@mui/material";
 
 export const TaskRow = memo(({ taskId }: { taskId: string }) => {
   const task = useAppSelector((state) => selectTaskById(state, taskId));
   const dispatch = useAppDispatch();
 
-  function updateStatus(id: string, newStatus: string) {
-    const newTask = {
-      id: id,
-      status: newStatus,
+  function updateStatus(event: SelectChangeEvent) {
+      const newTask = {
+      id: taskId,
+      status: event.target.value,
     };
 
     try {
-      dispatch(updateTask({ id: id, changes: newTask }));
+      dispatch(updateTask({ id: taskId, changes: newTask }));
     } catch (error) {
       const errorMessage =
         error instanceof Error
@@ -29,17 +29,17 @@ export const TaskRow = memo(({ taskId }: { taskId: string }) => {
 
   return (
     <div className="task">
-      <span>{task.title}</span>
-      <select
+      {task.title}
+      <Select
         value={task.status}
-        onChange={(e) => updateStatus(task.id, e.target.value)}
+        onChange={updateStatus}
       >
         {statusesList.map((status) => (
-          <option id={status} value={status}>
+          <MenuItem id={status} value={status}>
             {status}
-          </option>
+          </MenuItem>
         ))}
-      </select>
+      </Select>
     </div>
   );
 });

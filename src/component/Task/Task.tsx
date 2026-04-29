@@ -2,11 +2,12 @@ import "./Task.css";
 import { memo } from "react";
 import type { Task } from "../../types/tasks";
 import { statusesList } from "../../types/statuses";
-import { useAppDispatch } from "../../app/hooks";
-import { updateTask } from "../../features/tasks/tasksSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { selectTaskById, updateTask } from "../../features/tasks/tasksSlice";
 import { toast } from "react-toastify";
 
-export const TaskRow = memo(({ task }: { task: Task }) => {
+export const TaskRow = memo(({ taskId }: { taskId: string }) => {
+  const task = useAppSelector((state) => selectTaskById(state, taskId));
   const dispatch = useAppDispatch();
 
   function updateStatus(id: string, newStatus: string) {

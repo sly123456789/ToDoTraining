@@ -1,15 +1,15 @@
 import "./TaskList.css";
-import { selectAllTasks } from "../../features/tasks/tasksSlice";
+import { selectTasksIds } from "../../features/tasks/tasksSlice";
 import { useAppSelector } from "../../app/hooks";
 import { TaskRow } from "../Task/Task";
 
 export default function TasksList() {
-  const tasks = useAppSelector((state) => selectAllTasks(state));
+  const tasksIds = useAppSelector((state) => selectTasksIds(state));
 
   return (
     <div className="task-list">
-      {tasks.map((task) => (
-        <TaskRow key={task.id} task={task} />
+      {tasksIds.map((id) => (
+        <TaskRow key={id} taskId={id} />
       ))}
     </div>
   );

@@ -28,6 +28,6 @@ const tasksSlice = createSlice({
 export const { addTask, updateTask } = tasksSlice.actions;
 export default tasksSlice.reducer;
 
-export const { selectAll: selectAllTasks } = tasksAdapter.getSelectors(
+export const { selectById: selectTaskById, selectIds: selectTasksIds } = tasksAdapter.getSelectors(
   (state: RootState) => state.tasks,
 );

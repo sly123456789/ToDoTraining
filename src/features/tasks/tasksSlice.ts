@@ -10,7 +10,7 @@ const tasksSlice = createSlice({
   initialState: tasksAdapter.getInitialState({}, tasks),
   reducers: {
     addTask: (state, action) => {
-      const { id, title, status } = action.payload;
+      const { title } = action.payload;
       if (
         Object.values(state.entities).some(
           (task: Task) => task.title.toLowerCase() === title.toLowerCase(),
